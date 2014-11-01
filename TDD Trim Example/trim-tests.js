@@ -32,6 +32,8 @@ function testCase(name, tests){
 	var hasSetup = typeof tests.setUp == "function"; 
 	var hasTeardown = typeof tests.tearDown == "function";
 
+	output("<h2>" + "Test Case: " + name  +"</h2>", "#000");
+
 	for(var test in tests){
 		if(!/^test/ .test(test)){
 			continue; 
@@ -67,13 +69,18 @@ function testCase(name, tests){
 }
 
 testCase("String trim test", {
-	"test trim should remove leading white-space" : 
+	setUp: function(){
+		this.testData = "    a string  ";
+		this.passData = "a string";
+	},
+	"test: trim should remove leading white-space" : 
 	function(){
-		assert("should remove leading white-space", "a string" === "  a string".trim());
+		assert("should remove leading white-space", this.passData === this.testData.trim());
 	}, 
-	"test trim should remove trailing white-space": 
+	"test: trim should remove trailing white-space": 
 	function(){
-		assert("should remove trailing white-space", "a string" === "a string  ".trim());
+		assert("should remove trailing white-space", this.passData === this.testData.trim());
 	}
 }); 
+
 })
